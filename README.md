@@ -9,4 +9,4 @@ I would like to see all of bookmarks"
 
 ## Domain Model
 
-![Domain Model](/public/images-md/DomainModel.png)
+![Domain Model](./public/images-md/DomainModel.png)
