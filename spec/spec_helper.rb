@@ -11,7 +11,16 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
+require_relative './setup_test_db'
 
+ENV['ENVIOREMNT'] = 'test'
+
+# executing the file to clean de db
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_db
+  end
+end
 # Set envioremnt to Test
 ENV['RACK_ENV'] = 'test'
 # bring in the content of app.rb
