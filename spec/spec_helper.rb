@@ -11,25 +11,26 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
+# requiring all packages
+require 'capybara'
+require 'capybara/rspec'
+require 'rspec'
 require_relative './setup_test_db'
 
-ENV['ENVIOREMNT'] = 'test'
+ENV['ENVIRONMENT'] = 'test'
 
 # executing the file to clean de db
+=begin
 RSpec.configure do |config|
   config.before(:each) do
     setup_test_db
   end
 end
+=end
 # Set envioremnt to Test
 ENV['RACK_ENV'] = 'test'
 # bring in the content of app.rb
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
-
-# requiring all packages
-require 'capybara'
-require 'capybara/rspec'
-require 'rspec'
 
 # Tell capybara to known about Bookmark_Manager
 Capybara.app = BookmarkManager
