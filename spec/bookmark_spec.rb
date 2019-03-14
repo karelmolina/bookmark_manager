@@ -8,9 +8,9 @@ describe Bookmark do
     it 'returns a list with all bookmarks' do
 
       # Test Data
-      bookmark = Bookmark.new(title:'markers', url:'http://www.makersacademy.com')
-      Bookmark.new(title:'destroyallsoftware', url:'http://www.destroyallsoftware.com')
-      Bookmark.new(title: 'google', url:'http://www.google.com')
+      bookmark = Bookmark.generate(title:'markers', url:'http://www.makersacademy.com')
+      Bookmark.generate(title:'destroyallsoftware', url:'http://www.destroyallsoftware.com')
+      Bookmark.generate(title: 'google', url:'http://www.google.com')
 
       bookmarks = Bookmark.all
 
@@ -25,7 +25,7 @@ describe Bookmark do
   describe '.new' do
     it 'create a new bookmark' do
       #test Data
-      bookmark = Bookmark.new(title:'facebook', url:'http://facebook.com')
+      bookmark = Bookmark.generate(title:'facebook', url:'http://facebook.com')
       persisted_data = persisted_data(id: bookmark.id)
 
       expect(bookmark).to be_a Bookmark

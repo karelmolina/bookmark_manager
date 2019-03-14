@@ -12,24 +12,23 @@ class Bookmark
 
   def self.all
     if ENV['ENVIROMENT'] == 'test'
-    @conection = PG.connect :dbname => 'bookmarks_manager', :user => 'karel'
-  else
     @conection = PG.connect :dbname => 'bookmarks_manager_test', :user => 'karel'
+  else
+    @conection = PG.connect :dbname => 'bookmarks_manager', :user => 'karel'
   end
     resultSet = @conection.exec "SELECT * FROM bookmark"
     resultSet.map do |bookmark|
-      Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
-    end
+    Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
+  end
   end
 
-  def self.new(title:,url:)
+  def self.generate(title:,url:)
     if ENV['ENVIROMENT'] == 'test'
-    @conection = PG.connect :dbname => 'bookmarks_manager', :user => 'karel'
+    conection = PG.connect :dbname => 'bookmarks_manager_test', :user => 'karel'
   else
-    @conection = PG.connect :dbname => 'bookmarks_manager_test', :user => 'karel'
+    conection = PG.connect :dbname => 'bookmarks_manager', :user => 'karel'
   end
-    resultSet = @conection.exec("INSERT INTO bookmark(title,url) VALUES('#{title}','#{url}') RETURNING
-    id, title, url;")
+    resultSet = conection.exec "INSERT INTO bookmark(title, url) VALUES('#{title}','#{url}') RETURNING id, title, url;"
 
     Bookmark.new(id: resultSet[0]['id'], title: resultSet[0]['title'], url: resultSet[0]['url'])
   end
