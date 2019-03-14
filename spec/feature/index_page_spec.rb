@@ -1,5 +1,5 @@
-
-feature 'acces to the page' do
+require 'spec_helper'
+RSpec.feature 'acces to the page' do
 
   scenario 'loading index' do
     visit('/')

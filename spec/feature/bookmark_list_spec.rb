@@ -1,14 +1,14 @@
 require 'pg'
-
-feature 'showing the list of bookmarks' do
+require 'spec_helper'
+RSpec.feature 'showing the list of bookmarks' do
   scenario '#bookmarks list' do
     # creating connection to db
     connection = PG.connect(dbname: 'bookmarks_manager_test')
 
     # Test Data
-    connection.exec("INSERT INTO bookmark (url) VALUES ('http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmark (url) VALUES('http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmark (url) VALUES('http://www.google.com');")
+    connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.makersacademy.com');")
+    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
+    connection.exec("INSERT INTO bookmarks(url) VALUES('http://www.google.com');")
 
     visit('/bookmarks')
 

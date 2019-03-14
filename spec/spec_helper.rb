@@ -16,8 +16,12 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require_relative './setup_test_db'
+ENV['ENVIROMENT'] = 'test'
+# bring in the content of app.rb
+require File.join(File.dirname(__FILE__), '..', 'app.rb')
 
-ENV['ENVIRONMENT'] = 'test'
+# Tell capybara to known about Bookmark_Manager
+Capybara.app = BookmarkManager
 
 # executing the file to clean de db
 =begin
@@ -28,15 +32,12 @@ RSpec.configure do |config|
 end
 =end
 # Set envioremnt to Test
-ENV['RACK_ENV'] = 'test'
-# bring in the content of app.rb
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
-
-# Tell capybara to known about Bookmark_Manager
-Capybara.app = BookmarkManager
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_db = true
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
