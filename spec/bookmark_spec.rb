@@ -1,5 +1,4 @@
 require 'bookmark'
-require 'pg'
 require 'database_helper'
 
 describe Bookmark do
@@ -16,7 +15,7 @@ describe Bookmark do
 
       expect(bookmarks.length).to eq 3
       expect(bookmarks.first).to be_a Bookmark
-      expect(bookmark.first.id).to eq bookmark.first['id']
+      expect(bookmarks.first.id).to eq bookmark.id
       expect(bookmarks.first.url).to eq('http://www.makersacademy.com')
       expect(bookmarks.first.title).to eq('markers')
     end
@@ -29,9 +28,9 @@ describe Bookmark do
       persisted_data = persisted_data(id: bookmark.id)
 
       expect(bookmark).to be_a Bookmark
-      expect(bookmark['id']).to eq(persisted_data)
-      expect(bookmark['title']).to eq('facebook')
-      expect(bookmark['url']).to eq 'http://facebook.com'
+      expect(bookmark.id).to eq persisted_data
+      expect(bookmark.title).to eq('facebook')
+      expect(bookmark.url).to eq 'http://facebook.com'
 
     end
 
