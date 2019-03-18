@@ -40,7 +40,7 @@ class Bookmark
     conection = PG.connect :dbname => 'bookmarks_manager'
     end
 
-    resultSet = conection.exec("DELELTE from bookmarks where id = #{id};")
+    resultSet = conection.exec("DELETE from bookmarks where id = #{id};")
   end
 
 end
