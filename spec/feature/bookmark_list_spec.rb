@@ -1,19 +1,17 @@
 require 'pg'
 require 'spec_helper'
-RSpec.feature 'showing the list of bookmarks' do
+feature 'showing the list of bookmarks' do
   scenario '#bookmarks list' do
-    # creating connection to db
-    connection = PG.connect(dbname: 'bookmarks_manager_test')
-
-    # Test Data
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks(url) VALUES('http://www.google.com');")
+    # Using bookmark.generate
+    Bookmark.generate(title: 'markers',url: 'http://www.makersacademy.com')
+    Bookmark.generate(title: 'google',url:'http://www.google.com')
+    Bookmark.generate(title: 'destroyallsoftware',url:'http://www.destroyallsoftware.com')
 
     visit('/bookmarks')
 
-    expect(page).to have_content 'http://www.google.com'
-    expect(page).to have_content 'http://www.makersacademy.com'
-    expect(page).to have_content 'http://www.destroyallsoftware.com'
+    expect(page).to have_link('google',href: 'http://www.google.com')
+    expect(page).to have_link('markers',href: 'http://www.makersacademy.com')
+    expect(page).to have_link('destroyallsoftware',href: 'http://www.destroyallsoftware.com')
+
   end
 end
