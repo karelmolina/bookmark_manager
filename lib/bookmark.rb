@@ -33,4 +33,14 @@ class Bookmark
     Bookmark.new(id: resultSet[0]['id'], title: resultSet[0]['title'], url: resultSet[0]['url'])
   end
 
+  def self.delete(id:)
+    if ENV['ENVIROMENT'] == 'test'
+    conection = PG.connect :dbname => 'bookmarks_manager_test'
+    else
+    conection = PG.connect :dbname => 'bookmarks_manager'
+    end
+
+    resultSet = conection.exec("DELELTE from bookmarks where id = #{id};")
+  end
+
 end
