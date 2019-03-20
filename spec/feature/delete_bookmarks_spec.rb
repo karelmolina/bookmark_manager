@@ -7,8 +7,8 @@ RSpec.feature 'Deleting a Bookmark' do
 
     visit('/bookmarks')
     expect(page).to have_link('justdelete',href: 'http://justdelete.com')
-    click_button "delete"
-    page.has_xpath?('//bookmarks')
-    expect(page).not_to have_link('justdelete', href: 'http://justdelete.com')
+    first('.delete').click_button('delete')
+    page.has_xpath?('/bookmarks')
+    expect(page).should have_no_content('justdelete')
   end
 end
