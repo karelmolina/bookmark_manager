@@ -16,7 +16,9 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require_relative './setup_test_db'
+# Set envioremnt to Test
 ENV['ENVIROMENT'] = 'test'
+
 # bring in the content of app.rb
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 
@@ -24,15 +26,6 @@ require File.join(File.dirname(__FILE__), '..', 'app.rb')
 Capybara.app = BookmarkManager
 
 # executing the file to clean de db
-=begin
-RSpec.configure do |config|
-  config.before(:each) do
-    setup_test_db
-  end
-end
-=end
-# Set envioremnt to Test
-
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before(:each) do
