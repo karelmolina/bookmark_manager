@@ -34,7 +34,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   patch 'bookmarks/:id' do
-    Bookmark.patch(id: params[:id],title: params[:title], url: params[:url])
+    Bookmark.update(id: params[:id],title: params[:title], url: params[:url])
   end
 
   run if app_file == $0

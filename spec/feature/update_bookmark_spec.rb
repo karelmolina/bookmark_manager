@@ -1,4 +1,3 @@
-require 'pg'
 
 RSpec.feature 'UPDATE' do
   scenario 'edit the bookmark' do
@@ -9,5 +8,6 @@ RSpec.feature 'UPDATE' do
     first('.edit').click_button 'edit'
     # need "" to insert the variable
     expect(current_path).to eq "/bookmarks/edit/#{bookmark.id}"
+
   end
 end

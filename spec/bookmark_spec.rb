@@ -41,7 +41,18 @@ describe Bookmark do
 
       Bookmark.delete(id: bookmark.id)
 
-      expect(Bookmark.all.length).to eq 0
+      expect(Bookmark).to eq 0
+    end
+  end
+
+  describe '.update' do
+    it 'edit the bookmark' do
+      bookmark = Bookmark.generate(title: 'edit', url: 'http://www.edit.com')
+      updated =  Bookmark.update(id: bookmark.id, title: 'Justedited', url: 'http://www.Justedited.com')
+
+      expect(bookmark.id).to eq updated.id
+      expect(bookmark.title).not_to eq updated.title
+      expect(updated.url).to eq 'http://www.Justedited.com'
     end
   end
 end

@@ -43,14 +43,14 @@ class Bookmark
     conection.exec("DELETE from bookmarks where id = #{id};")
   end
 
-  def self.patch(id:,title:,url:)
+  def self.update(id:,title:,url:)
     if ENV['ENVIROMENT'] == 'test'
     conection = PG.connect :dbname => 'bookmarks_manager_test'
     else
     conection = PG.connect :dbname => 'bookmarks_manager'
     end
-    result = connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}',
-                  WHERE id = #{id} RETURNING id, title, url;")
+    resultSet = conection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}'
+      WHERE id = #{id} RETURNING id, title, url;")
     Bookmark.new(id: resultSet[0]['id'], title: resultSet[0]['title'], url: resultSet[0]['url'])
   end
 
