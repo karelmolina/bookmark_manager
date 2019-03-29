@@ -11,7 +11,7 @@
         <form action="/bookmarks/<%= bookmark.id %>" method="post">
         <div class="delete">
             <input id="hidden" type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="delete">
+            <input type="submit" value="delete <%= bookmark.id %>">
         </div>
         </form>
         <form class="edit" action="/bookmarks/edit/<%= bookmark.id%>" method="GET">

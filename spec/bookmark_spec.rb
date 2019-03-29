@@ -2,7 +2,15 @@ require 'bookmark'
 require 'database_helper'
 
 describe Bookmark do
+  describe '.delete' do
+    it 'delete a bookmark' do
+      bookmark = Bookmark.generate(title: 'justdelete', url: 'http://www.justdelete.com')
 
+      Bookmark.delete(id: bookmark.id)
+
+      expect(Bookmark.all.length).to eq 0
+    end
+  end
   describe '.all' do
     it 'returns a list with all bookmarks' do
 
@@ -32,16 +40,6 @@ describe Bookmark do
       expect(bookmark.title).to eq('facebook')
       expect(bookmark.url).to eq 'http://facebook.com'
 
-    end
-  end
-
-  describe '.delete' do
-    it 'delete a bookmark' do
-      bookmark = Bookmark.generate(title: 'justdelete', url: 'http://www.justdelete.com')
-
-      Bookmark.delete(id: bookmark.id)
-
-      expect(Bookmark).to eq 0
     end
   end
 
