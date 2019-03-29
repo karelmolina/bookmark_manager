@@ -25,7 +25,8 @@ class Bookmark
   end
   end
 
-  def self.generate(title:,url:)
+  def self.generate(title:, url:)
+    
     if ENV['ENVIROMENT'] == 'test'
       ConnectionDatabase.connect('bookmarks_manager_test')
       #@conection = PG.connect :dbname => 'bookmarks_manager_test'
