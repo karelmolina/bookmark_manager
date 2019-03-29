@@ -17,9 +17,12 @@
         <form class="edit" action="/bookmarks/edit/<%= bookmark.id%>" method="GET">
               <input type="submit" value="edit">
         </form>
+          <form class="comment" action="/bookmark/<%= bookmark.id%>/comment/new" method="get">
+            <input type="submit" value="comments">
+        </form>
       </li>
       <% end %>
     </ul>
-
+      <h2><%= flash[:notice] %></h2>
   </body>
 </html>

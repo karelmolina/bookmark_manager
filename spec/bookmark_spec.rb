@@ -33,7 +33,7 @@ describe Bookmark do
     it 'create a new bookmark' do
       #test Data
       bookmark = Bookmark.generate(title:'facebook', url:'http://facebook.com')
-      persisted_data = persisted_data(id: bookmark.id)
+      persisted_data = persisted_data(id: bookmark.id, table: 'bookmarks')
 
       expect(bookmark).to be_a Bookmark
       expect(bookmark.id).to eq persisted_data.first['id']
