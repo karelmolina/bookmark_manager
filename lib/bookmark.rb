@@ -33,7 +33,7 @@ class Bookmark
       ConnectionDatabase.connect('bookmarks_manager')
       #@conection = PG.connect :dbname => 'bookmarks_manager'
   end
-    return False unless is_url(url)
+    return false unless is_url?(url)
     resultSet = ConnectionDatabase.query("INSERT INTO bookmarks(title, url) VALUES('#{title}','#{url}') RETURNING id, title, url;")
 
     Bookmark.new(id: resultSet[0]['id'], title: resultSet[0]['title'], url: resultSet[0]['url'])
@@ -65,7 +65,8 @@ class Bookmark
 
   private
 
-  def self-is_url? (url)
+  def self.is_url? (url)
     url =~ URI::regexp(['http','https'])
+  end
 
 end

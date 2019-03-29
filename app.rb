@@ -4,7 +4,8 @@ require_relative 'lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
 
-  enable :session, :method_override, :sessions
+  enable :session, :method_override
+  register Sinatra::Flash
 
   get '/' do
     'Bookmark Manager'
@@ -20,7 +21,11 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/add' do
-      flash[:notice] = "You must submit a valid URL." unless Bookmark.generate(title: params[:title],url: params[:url])
+    begin
+      Bookmark.generate(title: params[:title],url: params[:url])
+    rescue
+      flash[:notice] = "You must submit a valid URL."
+    end
     redirect '/bookmarks'
   end
 
