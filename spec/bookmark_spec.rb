@@ -32,6 +32,10 @@ describe Bookmark do
       expect(bookmark.title).to eq('facebook')
       expect(bookmark.url).to eq 'http://facebook.com'
 
+      #valid url
+      not_url = Bookmark.generate(title: 'Not url',url: 'Not url')
+      expect(Bookmark.all).not_to include ('Not url')
+
     end
   end
 
