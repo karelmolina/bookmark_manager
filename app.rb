@@ -5,6 +5,7 @@ require_relative './lib/comments'
 require_relative './lib/help_enviroment'
 require_relative './lib/tags'
 require_relative './lib/bookmark_tag'
+require_relative './lib/user'
 
 ''' class for app to run the routes'''
 class BookmarkManager < Sinatra::Base
@@ -17,6 +18,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks' do
+    @user = User.find(id: session[:id_user])
     @bookmarks = Bookmark.all
     erb :bookmarks
   end
@@ -68,6 +70,16 @@ class BookmarkManager < Sinatra::Base
   post '/bookmarks/:id/tag' do
     tag = Tag.generate(tag: params[:tag])
     Bookmark_Tag.generate(bookmark_id: params[:id],tag_id: tag.id)
+    redirect('/bookmarks')
+  end
+
+  get '/user/new' do
+    erb :user
+  end
+
+  post '/user' do
+    user = User.generate(email: params[:email], pwd: params[:pwd])
+    session[:id_user] = user.id
     redirect('/bookmarks')
   end
 
