@@ -1,5 +1,32 @@
 # Bookmark Manager
 
+## Usage
+### set up the project
+clone this repo:
+```
+https://github.com/karelmolina/bookmark_manager.git
+```
+then run:
+```sh
+ bundle install
+ ```
+### set up database 
+connect to `psql` and create the databases `bookmarks_manager` and `bookmarks_manager_test`
+```
+CREATE DATABASE bookmarks_manager;
+CREATE DATABASE bookmarks_manager_test;
+```
+to set correct the tables access to `db/migrations` and execute the script in each database. 
+### Run the app
+```sh
+rackup
+```
+### Run the tests
+```sh
+rspec
+```
+
+
 ## User Stories
 ```
 As a user
@@ -49,6 +76,11 @@ So that I can keep my account secure
 I want to sign in with my email and password
 ```
 
-## Domain Model
+```
+As a user
+So that I can keep my account secure
+I want to sign out
+```
 
+## Domain Model
 ![Domain Model](./public/images-md/DomainModel.png)
