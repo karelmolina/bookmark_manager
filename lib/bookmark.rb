@@ -1,11 +1,14 @@
 require_relative 'ConnectionDatabase'
+require_relative 'comments'
 require 'uri'
 
 class Bookmark
   def self.all
     resultSet = ConnectionDatabase.query("SELECT * FROM bookmarks;")
     resultSet.map do |bookmark|
-    Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
+    Bookmark.new(id: bookmark['id'],
+                 title: bookmark['title'],
+                 url: bookmark['url'])
     end
   end
 
@@ -32,6 +35,10 @@ class Bookmark
     @id = id
     @title = title
     @url = url
+  end
+
+  def comments(comment_class = Comments)
+    comment_class.where(bookmark_id: id)
   end
 
   private

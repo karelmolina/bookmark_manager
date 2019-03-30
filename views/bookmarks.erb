@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Bookmark Manager</title>
@@ -7,7 +7,7 @@
   <body>
     <ul>
       <% @bookmarks.each do |bookmark| %>
-      <li> <a href="<%= bookmark.url%>"> <%= bookmark.title%></a>
+      <li> <a href="<%= bookmark.url%>"><%= bookmark.title%></a>
         <form action="/bookmarks/<%= bookmark.id %>" method="post">
         <div class="delete">
             <input id="hidden" type="hidden" name="_method" value="DELETE">
@@ -17,11 +17,20 @@
         <form class="edit" action="/bookmarks/edit/<%= bookmark.id%>" method="GET">
               <input type="submit" value="edit">
         </form>
-          <form class="comment" action="/bookmark/<%= bookmark.id%>/comment/new" method="get">
-            <input type="submit" value="comments">
-        </form>
+        <div>
+          <form id="box" action="/bookmarks/<%= bookmark.id %>/comment/new" method="get">
+              <input type="submit" value="comment">
+          </form>
+        </div>
+        <div>
+          <ul>
+            <% bookmark.comments.each do |comment|%>
+            <li><%= comment.text %></li>
+            <% end %>
+          </ul>
+          <% end %>
+        </div>
       </li>
-      <% end %>
     </ul>
       <h2><%= flash[:notice] %></h2>
   </body>

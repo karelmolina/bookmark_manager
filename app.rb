@@ -1,8 +1,8 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require_relative './lib/bookmark'
-require_relative './lib/help_enviroment'
 require_relative './lib/comments'
+require_relative './lib/help_enviroment'
 
 class BookmarkManager < Sinatra::Base
 
@@ -48,12 +48,12 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/:id/comment/new' do
-    @id = params["id"]
+    @id = params[:id]
     erb :comments
   end
 
   post '/bookmarks/:id/comment' do
-    Comments.generate(text: params["text"], bookmark_id: params["id"])
+    Comments.generate(text: params[:comment], bookmark_id: params[:id])
     redirect('/bookmarks')
   end
 
