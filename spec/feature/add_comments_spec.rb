@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.feature 'Add a comment' do
   scenario 'register the comment' do
     visit('/boomarks')
-    page.find(".box", match: :first).click_button "comment"
+    page.find(".box", match: :first).click_button 'comment'
     #first("comment").click_button "add comment"
     expect(current_path).to eq "/bookmarks/#{bookmark.id}/comment/new"
 

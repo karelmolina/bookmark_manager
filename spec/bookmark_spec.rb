@@ -2,6 +2,8 @@ require 'bookmark'
 require 'database_helper'
 
 describe Bookmark do
+  let(:tag_class){double(:tag_class)}
+
   describe '.delete' do
     it 'delete a bookmark' do
       bookmark = Bookmark.generate(title: 'justdelete', url: 'http://www.justdelete.com')
@@ -55,6 +57,14 @@ describe Bookmark do
       expect(bookmark.id).to eq updated.id
       expect(bookmark.title).not_to eq updated.title
       expect(updated.url).to eq 'http://www.Justedited.com'
+    end
+  end
+
+  describe 'tag' do
+    it 'get tags from .where' do
+      bookmark = Bookmark.generate(title: 'The tag', url: 'http://www.thetag.com')
+      expect(tag_class).to receive(:where).with(bookmark_id: bookmark.id)
+      bookmark.tags(tag_class)
     end
   end
 end

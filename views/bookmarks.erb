@@ -18,18 +18,32 @@
               <input type="submit" value="edit">
         </form>
         <div>
-          <form id="box" action="/bookmarks/<%= bookmark.id %>/comment/new" method="get">
+          <form class="box" action="/bookmarks/<%= bookmark.id %>/comment/new" method="get">
               <input type="submit" value="comment">
           </form>
         </div>
         <div>
+          <form class="tag" action="/bookmarks/<%= bookmark.id %>/tag/new" method="get">
+            <input type="submit" value="add tag">
+          </form>
+        </div>
+        <div>
+          <h2>Comments</h2>
           <ul>
             <% bookmark.comments.each do |comment|%>
             <li><%= comment.text %></li>
             <% end %>
           </ul>
-          <% end %>
         </div>
+        <div>
+          <h2>Tags</h2>
+          <ul>
+            <% bookmark.tags.each do |tag|%>
+            <li><%= tag.tag %></li>
+            <%end%>
+          </ul>
+        </div>
+        <% end %>
       </li>
     </ul>
       <h2><%= flash[:notice] %></h2>

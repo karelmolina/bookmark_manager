@@ -3,7 +3,10 @@ require 'sinatra/flash'
 require_relative './lib/bookmark'
 require_relative './lib/comments'
 require_relative './lib/help_enviroment'
+require_relative './lib/tags'
+require_relative './lib/bookmark_tag'
 
+''' class for app to run the routes'''
 class BookmarkManager < Sinatra::Base
 
   enable :sessions, :method_override
@@ -23,11 +26,11 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/add' do
-    flash[:notice] = "You must submit a valid URL." unless Bookmark.generate(title: params[:title],url: params[:url])
+    flash[:notice] = 'You must submit a valid URL.' unless Bookmark.generate(title: params[:title], url: params[:url])
     # begin
     #   Bookmark.generate(title: params[:title],url: params[:url])
     # rescue
-    #   flash[:notice] = "You must submit a valid URL. "
+    #   flash[:notice] = 'You must submit a valid URL. '
     # end
     redirect '/bookmarks'
   end
@@ -43,7 +46,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   patch '/bookmarks/:id' do
-    Bookmark.update(id: params[:id],title: params[:title], url: params[:url])
+    Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
     redirect '/bookmarks'
   end
 
@@ -57,5 +60,16 @@ class BookmarkManager < Sinatra::Base
     redirect('/bookmarks')
   end
 
-  run if app_file == $0
+  get '/bookmarks/:id/tag/new' do
+    @id = params[:id]
+    erb :tags
+  end
+
+  post '/bookmarks/:id/tag' do
+    tag = Tag.generate(tag: params[:tag])
+    Bookmark_Tag.generate(bookmark_id: params[:id],tag_id: tag.id)
+    redirect('/bookmarks')
+  end
+
+  run if app_file == $PROGRAM_NAME
 end
