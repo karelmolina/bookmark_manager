@@ -14,10 +14,14 @@ class User
   def self.find(id:)
     return nil unless id
     resultSet = ConnectionDatabase.query("SELECT * FROM users WHERE id = '#{id}';")
-    resultSet.map do |find|
-      User.new(id: find['id'], email: find['email'])
-    end
-    #User.new(id: resultSet[0]['id'], email: resultSet[0]['email '])
+    User.new(id: resultSet[0]['id'], email: resultSet[0]['email'])
+  end
+
+  def self.authenticate(email:, pwd:)
+    res = ConnectionDatabase.query("SELECT * FROM users WHERE email = '#{email}';")
+    return unless res.any?
+    return unless BCrypt::Password.new(res[0]['password']) == pwd
+    User.new(id: res[0]['id'], email: res[0]['email'])
   end
 
   attr_reader :id, :email

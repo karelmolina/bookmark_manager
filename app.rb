@@ -83,5 +83,26 @@ class BookmarkManager < Sinatra::Base
     redirect('/bookmarks')
   end
 
+  get '/sessions/new' do
+    erb :session
+  end
+
+  post '/sessions' do
+    user = User.authenticate(email: params[:email], pwd: params[:pwd])
+    unless user
+      flash[:notice] = 'Username and/or Password are incorrect'
+      redirect('/sessions/new')
+    else
+      session[:id_user] = user.id
+      redirect('/bookmarks')
+    end
+  end
+
+  post '/sessions/destroy' do
+    session.clear
+    flash[:notice] = 'You have sign out'
+    redirect('/bookmarks')
+  end
+
   run if app_file == $PROGRAM_NAME
 end

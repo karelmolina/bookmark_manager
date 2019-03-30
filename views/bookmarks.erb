@@ -7,6 +7,9 @@
   <body>
     <% if @user%>
       <h1>Welcome, <%= @user.email %></h1>
+      <form class="" action="/sessions/destroy" method="post">
+        <input type="submit" value="sign out">
+      </form>
     <% end %>
     <ul>
       <% @bookmarks.each do |bookmark| %>
@@ -21,8 +24,8 @@
               <input type="submit" value="edit">
         </form>
         <div>
-          <form class="box" action="/bookmarks/<%= bookmark.id %>/comment/new" method="get">
-              <input type="submit" value="comment">
+          <form class="comment" action="/bookmarks/<%= bookmark.id %>/comment/new" method="get">
+              <input type="submit" value="add comment">
           </form>
         </div>
         <div>
@@ -31,19 +34,23 @@
           </form>
         </div>
         <div>
-          <h2>Comments</h2>
+          <% if bookmark.comments.any? %>
+          <h4>Comments</h4>
           <ul>
             <% bookmark.comments.each do |comment|%>
             <li><%= comment.text %></li>
             <% end %>
+            <% end %>
           </ul>
         </div>
         <div>
-          <h2>Tags</h2>
+          <% if bookmark.tags.any? %>
+          <h5>Tags</h5>
           <ul>
-            <% bookmark.tags.each do |tag|%>
+            <% bookmark.tags.each do |tag| %>
             <li><%= tag.tag %></li>
-            <%end%>
+            <% end %>
+            <% end %>
           </ul>
         </div>
         <% end %>
