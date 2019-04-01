@@ -2,10 +2,10 @@ require 'spec_helper'
 
 RSpec.feature 'Add a comment' do
   scenario 'register the comment' do
-    visit('/boomarks')
+    bookmark = Bookmark.generate(title: 'markers',url: 'http://www.makersacademy.com')
+    visit('/bookmarks')
     page.find(".comment",match: :first).click_button 'add comment'
-    #first("comment").click_button "add comment"
-    expect(current_path).to eq "/bookmarks/#{bookmark.id}/comment/new"
+    #expect(current_path).to eq "/bookmarks/#{bookmark.id}/comment/new"
 
     fill_in 'comment', with: 'this is a comment test'
     click_button 'submit'
